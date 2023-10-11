@@ -1,0 +1,23 @@
+.tickerHeader {
+  margin: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tickerHeaderImage {
+  max-height: 180px;
+}
+
+.tickerDescription {
+  margin: 20px 30px;
+}
+
+.tickerMain {
+  margin: 20px 30px;
+}
+
+.tickerFooter {
+  margin: 20px 30px;
+  display: flex;
+  justify-content: center;
+}

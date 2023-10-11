@@ -1,0 +1,49 @@
+
+
+.SearchInputDiv {
+  min-height: 250px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  text-align: center;
+}
+.SearchInputDiv form {
+  margin: 0 auto;
+  text-align: center;
+}
+.SearchInputFormTextField {
+  margin:0 0 20px 0
+}
+
+.SearchInputFormButton {
+
+}
+.SearchInputFormButton:hover {
+
+}
+
+.SearchOutcomeListUl {
+  margin:0 30px;
+}
+
+.SearchOutcomeListLi {
+  margin: 15px 5px;
+  list-style: none;
+}
+
+.SearchOutcomeItemDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 7px;
+  background-color: rgb(25, 118, 210,0.15);
+}
+.SearchOutcomeItemDiv section {
+  display: flex;
+  flex-direction: column;
+}
+.SearchOutcomeItemDiv section label {
+  font-weight: bold;
+  margin: 5px 0;
+}
