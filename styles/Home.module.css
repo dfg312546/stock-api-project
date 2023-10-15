@@ -22,6 +22,11 @@
 
 }
 
+.SearchOutcomeListProgress {
+  display: flex;
+  margin: 300px auto;
+}
+
 .SearchOutcomeListUl {
   margin:0 30px;
 }
@@ -29,6 +34,22 @@
 .SearchOutcomeListLi {
   margin: 15px 5px;
   list-style: none;
+}
+
+.SearchOutcomeListButtonSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.SearchOutcomeListButton {
+  margin: 0 20px;
+}
+
+.SearchOutcomeListPageText {
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .SearchOutcomeItemDiv {

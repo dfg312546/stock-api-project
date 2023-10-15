@@ -1,3 +1,8 @@
+.tickerDetailPageLoadingProgress {
+  display: flex;
+  margin: 50vh auto;
+}
+
 .tickerHeader {
   margin: 20px 30px;
   display: flex;
@@ -8,12 +13,34 @@
   max-height: 180px;
 }
 
+.tickerMain {
+  margin: 20px 30px;
+}
+
 .tickerDescription {
   margin: 20px 30px;
 }
 
-.tickerMain {
-  margin: 20px 30px;
+.tickerDataVolumeForm {
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tickerDataVolumeForm div {
+  margin: 20px 0;
+}
+
+.tickerDataVolumeInput{
+  color: rgb(25, 118, 210);;
+  font-size: 1.25rem;
+  width: 75px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  text-align: center;
 }
 
 .tickerFooter {

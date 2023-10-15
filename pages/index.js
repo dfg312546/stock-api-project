@@ -1,16 +1,20 @@
+import Head from 'next/head';
 import { useState,useContext } from "react";
+import { useQuery } from "react-query";
 import { useRouter } from "next/router";
 import { Context } from "@/context/context";
-import { TextField,Button } from "@mui/material";
+import { TextField,Button,CircularProgress } from "@mui/material";
 import style from '../styles/Home.module.css'
 
 const apiKey = 'QXqHO13HVjyg9sYe0EhGdBXs5dVcTOEm'
 
 export default function Home(props) {
   const Ctx = useContext(Context)
+  const [isLoading, setIsLoading] = useState(false);
   // console.log(props.initialETFList)
 
   async function searchETFHandler(userInputKeyword) {
+    setIsLoading(true);
     const response = await fetch(`https://financialmodelingprep.com/api/v3/search?query=${userInputKeyword}&apikey=${apiKey}`)
     const data = await response.json();
     const filteredData = await data.map(item => ({
@@ -18,48 +22,22 @@ export default function Home(props) {
       symbol: item.symbol
     }))
     Ctx.setFilteredData(filteredData);
-    console.log(filteredData)
+    console.log(filteredData);
+    setIsLoading(false);
     return filteredData
   }
 
   return (
   <>
+  <Head>
+    <title>Find Ticker</title>
+    <meta name="description" content="Search the ticker with symbol keywords." />
+  </Head>
   <SearchInput searchETFHandler={searchETFHandler}/>
-  <SearchOutcomeList/>
+  <SearchOutcomeList isLoading={isLoading}/>
   </>
   )
 }
-
-
-// export async function getStaticProps() {
-//   try {
-//     const response = await fetch (`https://financialmodelingprep.com/api/v3/etf/list?&apikey=${apiKey}`,{
-//       method: 'GET',
-//     });
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
-//     const data = await response.json();
-//     const filteredData = data.map(item => ({
-//       name: item.name,
-//       price: item.price,
-//       symbol: item.symbol
-//     }))
-
-//     return {
-//       props: {
-//         initialETFList: filteredData,
-//       },
-//     };
-//   } catch (error) {
-//     console.error('There was a problem with the fetch operation:', error);
-//     return {
-//       props: {
-//         initialData: [],
-//       },
-//     };
-//   }
-// }
 
 //
 
@@ -69,7 +47,7 @@ export const SearchInput = (props) => {
 
   return (
     <div className={style.SearchInputDiv}>
-    <h2>Search ticker with keywords</h2>
+    <h2>Search ticker with symbol keywords</h2>
     <form onSubmit={(event) => {
       event.preventDefault();
       props.searchETFHandler(userInputKeyword);
@@ -92,7 +70,7 @@ export const SearchInput = (props) => {
   )
 }
 
-export const SearchOutcomeList = () => {
+export const SearchOutcomeList = (props) => {
   const Ctx = useContext(Context);
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
@@ -111,9 +89,13 @@ export const SearchOutcomeList = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
   return (
   <>
-    <ul className={style.SearchOutcomeListUl}>
+    {
+      props.isLoading ? 
+      <CircularProgress className={style.SearchOutcomeListProgress} /> :
+      <ul className={style.SearchOutcomeListUl}>
       {Ctx.filteredData.length !==0 ? currentData.map((item, index) => (
         <li 
         key={index}
@@ -123,14 +105,16 @@ export const SearchOutcomeList = () => {
         </li>
         )) : null
       }
-    </ul>
-    { currentData.length !==0 ?
-    <section>
-      <Button variant="contained" onClick={prevPage} disabled={currentPage === 1}>
+      </ul>
+    }
+
+    { currentData.length !==0 && !props.isLoading ?
+    <section className={style.SearchOutcomeListButtonSection}>
+      <Button variant="contained" onClick={prevPage} disabled={currentPage === 1} className={style.SearchOutcomeListButton}>
         Previous
       </Button>
-      {currentPage}
-      <Button variant="contained" onClick={nextPage} disabled={currentPage === totalPages}>
+      <span className={style.SearchOutcomeListPageText}>{currentPage}</span>
+      <Button variant="contained" onClick={nextPage} disabled={currentPage === totalPages} className={style.SearchOutcomeListButton}>
         Next
       </Button>
     </section> : null
