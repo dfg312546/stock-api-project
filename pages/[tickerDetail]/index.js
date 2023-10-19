@@ -3,8 +3,10 @@ import { useEffect,useState } from "react";
 import { useQuery } from "react-query";
 import { Button,CircularProgress } from "@mui/material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import ReactApexChart from 'react-apexcharts';
 import style from './tickerDetail.module.css'
+
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const apiKey = 'QXqHO13HVjyg9sYe0EhGdBXs5dVcTOEm'
 
@@ -42,10 +44,12 @@ function DetailPage() {
         setChartData(candlestickData);
         }
     };
-    
+
     if ( isSuccessTickerPrice ) {
       loadChartData()
     }
+
+
   },[isSuccessTickerPrice,tickerPriceData]);
 
   const { data: tickerInfoData, isSuccess: isSuccessTickerInfo } = useQuery('tickerInfo',fetchTickerInfo); 
@@ -78,6 +82,8 @@ function DetailPage() {
     if ( isSuccessTickerDividend && isSuccessTickerPrice ) {
       handleYTM();
     }
+    
+
   },[ isSuccessTickerDividend,isSuccessTickerPrice,tickerDividendData]);
 
   function handleYTM() {
@@ -254,7 +260,7 @@ return (
             Search
           </Button>
         </form>
-        <ReactApexChart options={chartOptions} series={chartSeries} type="candlestick" height={400} />
+        <ApexCharts options={chartOptions} series={chartSeries} type="candlestick" height={400} />
 
         <form className={style.tickerDataVolumeForm} onSubmit={handleDivedendDataVolumeChange}>
           <div>
@@ -273,7 +279,7 @@ return (
             Search
           </Button>
         </form>
-        <ReactApexChart options={barChartOptions} series={barChartSeries} type="bar" height={400} />
+        <ApexCharts options={barChartOptions} series={barChartSeries} type="bar" height={400} />
       </section>
 
       <section className={style.tickerFooter}>
