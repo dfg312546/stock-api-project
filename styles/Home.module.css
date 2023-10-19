@@ -24,6 +24,7 @@
 
 .SearchOutcomeListProgress {
   display: flex;
+  justify-content: center;
   margin: 300px auto;
 }
 

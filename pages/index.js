@@ -54,9 +54,10 @@ export const SearchInput = (props) => {
       setUserInputKeyword('')
       }}>
       <TextField
-        className={style.SearchInputFormTextField}
+        // className={style.SearchInputFormTextField}
         label="Symbol of Ticker"
         color="primary"
+        margin="normal"
         value={userInputKeyword}
         autoComplete="off"
         onChange={(event) => {setUserInputKeyword(event.target.value);}}
@@ -94,7 +95,9 @@ export const SearchOutcomeList = (props) => {
   <>
     {
       props.isLoading ? 
-      <CircularProgress className={style.SearchOutcomeListProgress} /> :
+      <div className={style.SearchOutcomeListProgress}>
+        <CircularProgress />
+      </div> :
       <ul className={style.SearchOutcomeListUl}>
       {Ctx.filteredData.length !==0 ? currentData.map((item, index) => (
         <li 
