@@ -1,5 +1,6 @@
 .tickerDetailPageLoadingProgress {
   display: flex;
+  justify-content: center;
   margin: 50vh auto;
 }
 

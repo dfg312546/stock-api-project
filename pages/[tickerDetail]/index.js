@@ -206,7 +206,11 @@ const barChartSeries = [
 
 return (
   <>
-  { (!isSuccessTickerInfo || !isSuccessTickerPrice || !isSuccessTickerDividend ) && <CircularProgress className={style.tickerDetailPageLoadingProgress}/>}
+  { (!isSuccessTickerInfo || !isSuccessTickerPrice || !isSuccessTickerDividend ) && 
+    <div className={style.tickerDetailPageLoadingProgress}>
+      <CircularProgress />
+    </div>
+    }
   { isSuccessTickerInfo && tickerInfoData['Error Message'] && 
     (<div>
       <p>{tickerInfoData['Error Message']}</p>
