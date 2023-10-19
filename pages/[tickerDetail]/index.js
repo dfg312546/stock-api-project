@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect,useState } from "react";
 import { useQuery } from "react-query";
 import { Button,CircularProgress } from "@mui/material";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ReactApexChart from 'react-apexcharts';
 import style from './tickerDetail.module.css'
 
@@ -192,7 +193,7 @@ const barChartSeries = [
     data: chartDataDividend,
   },
   {
-    name: 'Yield to Maturity',
+    name: 'Yield to Maturity ( % )',
     data: YTMdata,
   }
 ];
@@ -219,6 +220,23 @@ return (
 
       <section className={style.tickerMain}>
         <p className={style.tickerDescription}>{tickerInfoData[0].description}</p>
+        <div className={style.tickerDescriptionFooter}>
+          <h4>Type : 
+            {tickerInfoData[0].isEtf && <span>ETF</span>}
+            {tickerInfoData[0].isAdr && <span>ADR</span>}
+            {tickerInfoData[0].isFund && <span>Fund</span>}
+            {(!tickerInfoData[0].isEtf && !tickerInfoData[0].isAdr && !tickerInfoData[0].isFund) && <span> Stock</span>}
+          </h4>
+          <h4>
+            Sector : {tickerInfoData[0].sector}
+          </h4>
+          <h4>
+            Industry : {tickerInfoData[0].industry}
+          </h4>
+          <h4>
+            Company web : {tickerInfoData[0].website && <a href={tickerInfoData[0].website} target="_blank">{tickerInfoData[0].companyName}</a>}<OpenInNewIcon className={style.openInNewIcon}/>
+          </h4>
+        </div>
         <form className={style.tickerDataVolumeForm} onSubmit={handlePriceDataVolumeChange}>
           <div>
           我想要尋找近
