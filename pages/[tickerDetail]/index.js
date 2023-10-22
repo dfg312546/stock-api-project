@@ -228,7 +228,9 @@ return (
     </div>)  
   }
 
-  { isSuccessTickerInfo && !tickerInfoData['Error Message'] && !tickerPriceData['Error Message'] && !tickerDividendData['Error Message'] &&
+  { (isSuccessTickerInfo && !tickerInfoData['Error Message']) && 
+    (isSuccessTickerPrice && !tickerPriceData['Error Message']) && 
+    (isSuccessTickerDividend && !tickerDividendData['Error Message']) &&
     (<div className={style.tickerDetailPageContainer}>
       <section className={style.tickerHeader}>
         <h2 className={style.tickerHeaderTitle}>Symbol is {tickerInfoData[0].symbol},and name is {tickerInfoData[0].companyName}</h2>
