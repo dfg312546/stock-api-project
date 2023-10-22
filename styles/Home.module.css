@@ -58,6 +58,7 @@
 .SearchOutcomeListPageText {
   font-size: 1.25rem;
   font-weight: bold;
+  margin: 0 20px;
 }
 
 .SearchOutcomeItemDiv {

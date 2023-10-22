@@ -117,7 +117,7 @@ export const SearchOutcomeList = (props) => {
       <Button variant="contained" onClick={prevPage} disabled={currentPage === 1} className={style.SearchOutcomeListButton}>
         Previous
       </Button>
-      <span className={style.SearchOutcomeListPageText}>{currentPage}</span>
+      <span className={style.SearchOutcomeListPageText}>{currentPage} / {totalPages}</span>
       <Button variant="contained" onClick={nextPage} disabled={currentPage === totalPages} className={style.SearchOutcomeListButton}>
         Next
       </Button>

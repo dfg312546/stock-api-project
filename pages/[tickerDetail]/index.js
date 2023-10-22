@@ -66,7 +66,10 @@ function DetailPage() {
     return data;
   };
   useEffect(() => {
-    if ( isSuccessTickerDividend ) {
+    if ( isSuccessTickerDividend && tickerDividendData['Error Message'] ) {
+      return
+    }
+    else if ( isSuccessTickerDividend ) {
       const filteredTickerDividendData = tickerDividendData.historical.slice(0,dividendDataVolume);
       console.log(filteredTickerDividendData);
       const candlestickDividendData = filteredTickerDividendData.map((item) => ({
@@ -76,10 +79,10 @@ function DetailPage() {
       setChartDataDividend(candlestickDividendData);
     };
   },[isSuccessTickerDividend,tickerDividendData]);
-  console.log(chartDataDividend);
+  console.log(tickerDividendData,chartDataDividend);
 
   useEffect(() => {
-    if ( isSuccessTickerDividend && isSuccessTickerPrice ) {
+    if ( isSuccessTickerDividend && isSuccessTickerPrice && !tickerPriceData['Error Message'] && !tickerDividendData['Error Message'] ) {
       handleYTM();
     }
     
@@ -88,7 +91,8 @@ function DetailPage() {
 
   function handleYTM() {
     const dataYTM = []
-    for ( let i=0; i<dividendDataVolume ; i++ ) {
+    if (tickerDividendData.historical.length !== 0) {
+      for ( let i=0; i<dividendDataVolume ; i++ ) {
       const startDate = tickerDividendData.historical[i].date;
       const endDate = tickerDividendData.historical[i+1].date;
       console.log(startDate,endDate)
@@ -111,6 +115,8 @@ function DetailPage() {
         y: parseFloat(YTM),
       })
     }
+    }
+
     console.log(dataYTM)
     setYTMdata(dataYTM)
     return dataYTM
@@ -211,9 +217,9 @@ return (
       <CircularProgress />
     </div>
     }
-  { isSuccessTickerInfo && tickerInfoData['Error Message'] && 
+  { isSuccessTickerInfo && tickerInfoData['Error Message'] &&
     (<div>
-      <p>{tickerInfoData['Error Message']}</p>
+      <p className={style.tickerDetailErrorMessage}>{tickerInfoData['Error Message']}</p>
       <Button
         onClick={goBack}
       >
@@ -221,7 +227,8 @@ return (
       </Button>
     </div>)  
   }
-  { isSuccessTickerInfo && !tickerInfoData['Error Message'] && 
+
+  { isSuccessTickerInfo && !tickerInfoData['Error Message'] && !tickerPriceData['Error Message'] && !tickerDividendData['Error Message'] &&
     (<div className={style.tickerDetailPageContainer}>
       <section className={style.tickerHeader}>
         <h2 className={style.tickerHeaderTitle}>Symbol is {tickerInfoData[0].symbol},and name is {tickerInfoData[0].companyName}</h2>
