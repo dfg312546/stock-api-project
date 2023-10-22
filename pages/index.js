@@ -106,7 +106,8 @@ export const SearchOutcomeList = (props) => {
         >
           <SearchOutcomeItem symbol={item.symbol} name={item.name}/>
         </li>
-        )) : null
+        )) : 
+        <li className={style.SearchOutcomeTutorial}>Try to search AAPL,GE, or IBM ... </li>
       }
       </ul>
     }

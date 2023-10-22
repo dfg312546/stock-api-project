@@ -36,6 +36,13 @@
   margin: 15px 5px;
   list-style: none;
 }
+.SearchOutcomeTutorial {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  list-style: none;
+}
 
 .SearchOutcomeListButtonSection {
   display: flex;
